@@ -50,8 +50,41 @@ header {
   justify-content: space-between;
   align-items: center;
   color: gray;
+  padding: 0.5rem 0;
 
   a {
     color: gray;
   }
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(35rem, 1fr));
+  padding: 2rem 0;
+  width: 80%;
+  margin: auto;
+  row-gap: 5rem;
+  column-gap: 3rem;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.nav-button {
+  min-height: 30vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.more {
+  padding: 1rem 3rem;
+  background: $dark-blue;
+  color: white;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
 }

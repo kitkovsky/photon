@@ -2,11 +2,15 @@
 const auth = "563492ad6f91700001000001e5ba829308784e248f510c24304dcb17"; // TODO: not the end of the world, but not ideal
 const gallery = document.querySelector(".gallery") as HTMLDivElement;
 const searchInput = document.querySelector(".search-input") as HTMLInputElement;
-const submitButton = document.querySelector(
-  ".submit-button"
-) as HTMLButtonElement;
+const searchForm = document.querySelector(".search-form") as HTMLFormElement;
+const moreButton = document.querySelector(".more") as HTMLButtonElement;
+const logo = document.querySelector("#logo") as HTMLAnchorElement;
+let nextPageUrl = "";
 
-submitButton.addEventListener("click", search);
+window.addEventListener("DOMContentLoaded", getCuratedPhotos);
+searchForm.addEventListener("submit", search);
+moreButton.addEventListener("click", loadMore);
+logo.addEventListener("click", getCuratedPhotos);
 
 function search(event: Event) {
   event.preventDefault();
@@ -41,6 +45,7 @@ async function fetchApi(url: string) {
     },
   });
   const parsedData = await fetchedData.json();
+  nextPageUrl = parsedData.next_page;
   return parsedData;
 }
 
@@ -58,4 +63,7 @@ async function getQueryPhotos(query: string) {
   createGallery(data);
 }
 
-getCuratedPhotos();
+async function loadMore() {
+  const data = await fetchApi(nextPageUrl);
+  createGallery(data);
+}

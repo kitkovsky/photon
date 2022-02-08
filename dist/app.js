@@ -3,8 +3,14 @@
 const auth = "563492ad6f91700001000001e5ba829308784e248f510c24304dcb17"; // TODO: not the end of the world, but not ideal
 const gallery = document.querySelector(".gallery");
 const searchInput = document.querySelector(".search-input");
-const submitButton = document.querySelector(".submit-button");
-submitButton.addEventListener("click", search);
+const searchForm = document.querySelector(".search-form");
+const moreButton = document.querySelector(".more");
+const logo = document.querySelector("#logo");
+let nextPageUrl = "";
+window.addEventListener("DOMContentLoaded", getCuratedPhotos);
+searchForm.addEventListener("submit", search);
+moreButton.addEventListener("click", loadMore);
+logo.addEventListener("click", getCuratedPhotos);
 function search(event) {
     event.preventDefault();
     gallery.innerHTML = "";
@@ -36,6 +42,7 @@ async function fetchApi(url) {
         },
     });
     const parsedData = await fetchedData.json();
+    nextPageUrl = parsedData.next_page;
     return parsedData;
 }
 async function getCuratedPhotos() {
@@ -46,4 +53,7 @@ async function getQueryPhotos(query) {
     const data = await fetchApi(`https://api.pexels.com/v1/search?query=${query}&page=1&per_page=20`);
     createGallery(data);
 }
-getCuratedPhotos();
+async function loadMore() {
+    const data = await fetchApi(nextPageUrl);
+    createGallery(data);
+}

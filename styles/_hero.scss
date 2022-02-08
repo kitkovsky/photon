@@ -2,6 +2,10 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+a {
+  text-decoration: none;
+}
+
 header {
   display: flex;
   flex-direction: column;
@@ -38,5 +42,16 @@ header {
     background: $dark-blue;
     color: white;
     cursor: pointer;
+  }
+}
+
+.photo-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: gray;
+
+  a {
+    color: gray;
   }
 }

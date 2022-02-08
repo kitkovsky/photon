@@ -9,14 +9,18 @@ function search(event) {
     event.preventDefault();
     gallery.innerHTML = "";
     getQueryPhotos(searchInput.value);
+    searchInput.value = "";
 }
 function createGallery(data) {
     data.photos.forEach((photo) => {
         const galleryImage = document.createElement("div");
         galleryImage.classList.add("gallery-image");
         galleryImage.innerHTML = `
+    <div class="photo-info">
+    <p>${photo.photographer}</p>
+    <a href=${photo.src.original} target="_blank">Download</a>
+    </div>
     <img src=${photo.src.large}></img>
-    <p> ${photo.photographer}</p>
     `;
         gallery.appendChild(galleryImage);
     });
